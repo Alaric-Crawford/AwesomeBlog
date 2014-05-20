@@ -1,0 +1,75 @@
+﻿@model IEnumerable<AwesomeBlog.Models.blogstuuf>
+
+@{
+    ViewBag.Title = "Posts";
+}
+<br />
+<br />
+<h2>Blog Posts</h2>
+<br />
+<p class="links">
+    @Html.ActionLink("Create New", "Create")    |
+    @Html.ActionLink("Home", "Index", "Home")
+</p>
+<table>
+    <tr>
+        <th class="heading" id="date">
+            Date Posted
+        </th>
+        <th class="heading" id="title">
+            Title
+        </th>
+        <th class="heading" id="author">
+            Author
+        </th>
+        <th class="heading" id="content">
+            Content
+        </th>
+        <!--<th>
+            Image
+        </th>
+        <th>
+            Views
+        </th>-->
+        <th class="heading">
+            Rating
+        </th>
+        <!--<th>
+            Tassels
+        </th>-->
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td id="date">
+            @item.DatePosted.ToLongDateString()
+        </td>
+        <td id="title">
+            @item.Title
+        </td>
+        <td id="author">
+            @item.PosterName
+        </td>
+        <td id="content">
+            @if (item.Message.Length > 200) {
+            <small>@item.Message.Substring(0, 200)</small>
+            } else {
+                <small>@item.Message</small>
+            }
+        </td>
+        <td>
+            @item.Rating
+        </td>
+        <td id="tasks">
+            @Html.ActionLink("Edit", "Edit", new {  id=item.PostID  })
+            <br />
+            <br />
+            @Html.ActionLink("Details", "Details", new {  id=item.PostID  })
+            <br />
+            <br />
+            @Html.ActionLink("Delete", "Delete", new {  id=item.PostID  })
+        </td>
+    </tr>
+}
+
+</table>

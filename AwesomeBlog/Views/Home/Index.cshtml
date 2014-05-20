@@ -1,0 +1,50 @@
+﻿@model IEnumerable<AwesomeBlog.Models.blogstuuf>
+
+@{
+    ViewBag.Title = "The Blog";
+}
+
+<br />
+
+<h2>Welcome to The Blog</h2>
+<br />
+<br />
+@foreach (var post in Model)
+{
+    <section>
+        <h1>@post.Title</h1>
+        <small>Submitted @post.DatePosted.ToLongDateString()
+            <br />
+            By @post.PosterName
+        </small>
+        <br />
+        <br />
+        @if (!string.IsNullOrEmpty(post.Image))
+        {
+            <div>
+                <img src="@post.Image" />
+            </div>
+        }
+
+        <div class="body">
+            @post.Message
+            @*@Html.Raw(post.Message.Replace("\r\n", "<br/>"))*@
+        </div>
+
+        <div class="rating">
+            <span class="likes" data-id="@post.PostID">
+                Rated @post.Rating
+            </span>
+        </div>
+        <div class="comments">
+        @Html.Partial("Comment", post)
+            </div>
+    </section>
+    <br />
+            if (!(post == Model.Last()))
+            {
+    <hr />
+            }
+    <br />
+    <div class="links">@Html.ActionLink("Posts", "Index", "Post")</div>
+}

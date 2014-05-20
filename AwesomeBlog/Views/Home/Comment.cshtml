@@ -1,0 +1,38 @@
+﻿@model AwesomeBlog.Models.blogstuuf
+
+@if (Model.Comments.Count() == 1)
+        {
+            <span class="showComments">
+                Show @Model.Comments.Count() Comment
+            </span>
+        }
+        else
+        {
+            <span class="showComments">
+                Show @Model.Comments.Count() Comments
+            </span>
+        }
+
+        <div class="commentsDiv">
+            @foreach (var comment in Model.Comments)
+            {
+                <div>
+                    @comment.author posted on @comment.postedOn.ToShortDateString():
+                    <br />
+                    @comment.body
+                </div>
+                <br />
+            }
+
+            @using (Html.BeginForm("AddComment", "Home", FormMethod.Post, new {@class="commentForm", data_id=Model.PostID }))
+            {
+                <label for="author">Author</label>
+                <input type="text" name="author" />
+                <br />
+                <label for="body">Comment</label>
+                <textarea name="body"></textarea>
+                <br />
+                <input type="submit" value="Add Comment" />
+            }
+
+        </div>
